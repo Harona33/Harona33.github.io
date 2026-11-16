@@ -1,0 +1,577 @@
+<title>Thior Harona</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #f5f5f5;
+  --bg-card: #fff;
+  --fg: #222;
+  --fg-dim: #666;
+  --blue: #2563eb;
+  --blue-bg: rgba(37,99,235,0.07);
+  --teal: #0d9488;
+  --teal-bg: rgba(13,148,136,0.07);
+  --border: #ddd;
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111;
+    --bg-card: #1a1a1a;
+    --fg: #ddd;
+    --fg-dim: #999;
+    --blue: #4b8df8;
+    --blue-bg: rgba(75,141,248,0.1);
+    --teal: #2dd4bf;
+    --teal-bg: rgba(45,212,191,0.08);
+    --border: #333;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111;
+  --bg-card: #1a1a1a;
+  --fg: #ddd;
+  --fg-dim: #999;
+  --blue: #4b8df8;
+  --blue-bg: rgba(75,141,248,0.1);
+  --teal: #2dd4bf;
+  --teal-bg: rgba(45,212,191,0.08);
+  --border: #333;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+h1, h2, h3, p, figure, ul, ol { margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  line-height: 1.6;
+  margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* NAV */
+.navbar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 9;
+  margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding: 0 max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(245,245,245,0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .navbar { background: rgba(17,17,17,0.85); }
+}
+:root[data-theme="dark"] .navbar { background: rgba(17,17,17,0.85); }
+
+.nav-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-inner a {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--fg-dim);
+  text-decoration: none;
+  padding: 12px 12px;
+  white-space: nowrap;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-inner a:hover,
+.nav-inner a.active {
+  color: var(--blue);
+  background: var(--blue-bg);
+}
+
+/* HEADER */
+.header-wrap {
+  position: relative;
+  background: #0e1525;
+  margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px)));
+  padding: 0 max(16px, env(safe-area-inset-left, 0px));
+  overflow: hidden;
+}
+canvas#matrix {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0.35;
+  pointer-events: none;
+}
+.header-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 0 44px;
+  text-align: center;
+}
+.photo-wrap {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px;
+  border: 2px solid rgba(75,141,248,0.4);
+}
+.photo-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  filter: saturate(0.85) brightness(1.02);
+}
+.header-inner h1 {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+}
+.role {
+  font-size: 0.92rem;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+.role strong { color: #4b8df8; }
+.bio {
+  max-width: 500px;
+  margin: 14px auto 0;
+  color: #8892a8;
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+.header-contact {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.header-contact a {
+  color: #cbd5e1;
+  font-size: 0.82rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.15s;
+}
+.header-contact a:hover { background: rgba(255,255,255,0.1); }
+.header-contact svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* MAIN */
+.main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 0 56px;
+}
+
+section { margin-bottom: 40px; }
+section:last-of-type { margin-bottom: 0; }
+
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--blue);
+  display: inline-block;
+}
+
+/* CARDS */
+.card {
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.card:hover {
+  background: rgba(255,255,255,0.75);
+  border-color: var(--blue);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .card { background: rgba(26,26,26,0.5); }
+  :root:not([data-theme="light"]) .card:hover { background: rgba(26,26,26,0.75); }
+}
+:root[data-theme="dark"] .card { background: rgba(26,26,26,0.5); }
+:root[data-theme="dark"] .card:hover { background: rgba(26,26,26,0.75); }
+
+/* SKILLS */
+.skill-group { margin-bottom: 14px; }
+.skill-group:last-child { margin-bottom: 0; }
+.skill-label {
+  font-size: 0.73rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+  margin-bottom: 6px;
+}
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+.tag.alt { background: var(--teal-bg); color: var(--teal); }
+
+/* ENTRIES */
+.entry {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.entry:last-child { border-bottom: none; }
+.entry-date {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--fg-dim);
+  padding-top: 2px;
+}
+.entry-content h3 { font-size: 0.95rem; font-weight: 600; }
+.entry-content .org {
+  font-size: 0.82rem;
+  color: var(--blue);
+  margin-top: 1px;
+}
+.entry-content p {
+  font-size: 0.85rem;
+  color: var(--fg-dim);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+
+/* PROJECTS */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+.project-card h3 { font-size: 0.9rem; font-weight: 600; }
+.project-card p {
+  font-size: 0.82rem;
+  color: var(--fg-dim);
+  margin-top: 6px;
+  line-height: 1.6;
+}
+.project-card .tech {
+  display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px;
+}
+.project-card .tech span {
+  font-size: 0.7rem; font-weight: 600;
+  padding: 2px 7px; border-radius: 3px;
+  background: var(--blue-bg); color: var(--blue);
+  text-transform: uppercase; letter-spacing: 0.03em;
+}
+
+/* LANGUAGES */
+.lang-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+.lang-item { flex: 1; min-width: 140px; text-align: center; }
+.lang-item .name { font-weight: 600; font-size: 0.95rem; }
+.lang-item .level { font-size: 0.8rem; color: var(--fg-dim); margin-top: 2px; }
+
+/* INTERESTS */
+.interests-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.interest-tag {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  background: var(--bg-card);
+}
+
+/* CONTACT */
+.contact-links { display: flex; flex-direction: column; gap: 10px; }
+.contact-links a {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--fg); text-decoration: none; font-size: 0.88rem;
+}
+.contact-links a:hover { color: var(--blue); }
+.contact-links svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--blue); }
+
+/* FOOTER */
+.footer {
+  text-align: center; padding: 24px 0 12px;
+  font-size: 0.75rem; color: var(--fg-dim);
+  border-top: 1px solid var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  canvas#matrix { display: none; }
+}
+@media (max-width: 600px) {
+  .header-inner { padding: 40px 8px 32px; }
+  .nav-inner a { padding: 10px 8px; font-size: 0.76rem; }
+  .entry { grid-template-columns: 1fr; gap: 2px; }
+  .projects-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- HEADER -->
+<div class="header-wrap">
+  <canvas id="matrix"></canvas>
+  <div class="header-inner">
+    <div class="photo-wrap">
+      <img src="photo.webp" alt="Thior Harona">
+    </div>
+    <h1>Thior Harona</h1>
+    <div class="role">Developpeur Web & <strong>Cybersecurite</strong></div>
+    <p class="bio">Diplome du Bac Pro CIEL mention Assez Bien, passe par Epitech. Je cree des sites web et je continue a progresser en securite informatique et en gestion de systemes.</p>
+    <div class="header-contact">
+      <a href="mailto:haronathior@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        haronathior@gmail.com
+      </a>
+      <a href="tel:+33620079308">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        06 20 07 93 08
+      </a>
+      <a href="https://github.com/Harona33" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#competences">Competences</a>
+    <a href="#experience">Experience</a>
+    <a href="#formation">Formation</a>
+    <a href="#projets">Projets</a>
+    <a href="#langues">Langues</a>
+    <a href="#interets">Interets</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- BODY -->
+<div class="main">
+
+  <section id="competences">
+    <h2 class="section-title">Competences</h2>
+    <div class="card">
+      <div class="skill-group">
+        <div class="skill-label">Developpement</div>
+        <div class="tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">C</span>
+          <span class="tag">Creation de sites web</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Systemes & Reseaux</div>
+        <div class="tags">
+          <span class="tag alt">Ubuntu / Linux</span>
+          <span class="tag alt">Administration reseau</span>
+          <span class="tag alt">Securite informatique</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Outils & Plateformes</div>
+        <div class="tags">
+          <span class="tag">VS Code</span>
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Arc</span>
+          <span class="tag">Root Me</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+    <div class="card">
+      <div class="entry" style="border:none;padding:0">
+        <div class="entry-date">Stage</div>
+        <div class="entry-content">
+          <h3>Stage en informatique</h3>
+          <div class="org">Milieu professionnel IT</div>
+          <p>Reparation et entretien des PC, aide aux utilisateurs, gestion du materiel informatique.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="formation">
+    <h2 class="section-title">Formation</h2>
+    <div class="card" style="margin-bottom:12px">
+      <div class="entry" style="border:none;padding:0">
+        <div class="entry-date">2026</div>
+        <div class="entry-content">
+          <h3>Formation en informatique — Epitech</h3>
+          <div class="org">Ecole d'informatique</div>
+          <p>Formation par projets : algorithmique, developpement en C et travail en equipe.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:12px">
+      <div class="entry" style="border:none;padding:0">
+        <div class="entry-date">Obtenu</div>
+        <div class="entry-content">
+          <h3>Bac Pro CIEL — Mention Assez Bien</h3>
+          <div class="org">Cybersecurite, Informatique et reseaux, Electronique</div>
+          <p>Reseaux, securite informatique, electronique et developpement.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="entry" style="border:none;padding:0">
+        <div class="entry-date">Pratique</div>
+        <div class="entry-content">
+          <h3>Root Me</h3>
+          <div class="org">Plateforme de challenges en cybersecurite</div>
+          <p>Challenges pratiques en securite web, cracking et securite reseau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projets">
+    <h2 class="section-title">Projets</h2>
+    <div class="projects-grid">
+      <div class="card project-card">
+        <h3>Sites web personnels</h3>
+        <p>Je cree des sites web de A a Z, du design au code, avec HTML, CSS et JavaScript.</p>
+        <div class="tech"><span>HTML</span><span>CSS</span><span>JS</span></div>
+      </div>
+      <div class="card project-card">
+        <h3>Challenges CTF</h3>
+        <p>Challenges de securite sur Root Me : trouver des failles web, cracking et tests reseau.</p>
+        <div class="tech"><span>Linux</span><span>Reseau</span><span>Securite</span></div>
+      </div>
+      <div class="card project-card">
+        <h3>Administration systeme</h3>
+        <p>J'installe et je configure Ubuntu, je gere les services et la securite des postes.</p>
+        <div class="tech"><span>Ubuntu</span><span>CLI</span><span>Admin</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="langues">
+    <h2 class="section-title">Langues</h2>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <div class="card lang-item">
+        <div class="name">Francais</div>
+        <div class="level">Langue maternelle</div>
+      </div>
+      <div class="card lang-item">
+        <div class="name">Anglais</div>
+        <div class="level">Niveau C1 — courant</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="interets">
+    <h2 class="section-title">Centres d'interet</h2>
+    <div class="interests-wrap">
+      <span class="interest-tag">Football en salle</span>
+      <span class="interest-tag">Developpement web</span>
+      <span class="interest-tag">Cybersecurite</span>
+      <span class="interest-tag">Challenges CTF</span>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <div class="card">
+      <div class="contact-links">
+        <a href="mailto:haronathior@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          haronathior@gmail.com
+        </a>
+        <a href="tel:+33620079308">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          06 20 07 93 08
+        </a>
+        <a href="https://github.com/Harona33" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          github.com/Harona33
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">Thior Harona — 2026</footer>
+</div>
+
+<script>
+var c = document.getElementById('matrix');
+var ctx = c.getContext('2d');
+var wrap = c.parentElement;
+function resize() { c.width = wrap.offsetWidth; c.height = wrap.offsetHeight; }
+resize();
+window.addEventListener('resize', resize);
+var chars = '01{}[]<>/:;=+-*&|$#@!?~^%';
+var fontSize = 13;
+var columns = Math.floor(c.width / fontSize);
+var drops = [];
+for (var i = 0; i < columns; i++) drops[i] = Math.random() * -40 | 0;
+function draw() {
+  ctx.fillStyle = 'rgba(14,21,37,0.08)';
+  ctx.fillRect(0, 0, c.width, c.height);
+  columns = Math.floor(c.width / fontSize);
+  while (drops.length < columns) drops.push(Math.random() * -20 | 0);
+  for (var i = 0; i < columns; i++) {
+    var ch = chars[Math.random() * chars.length | 0];
+    var x = i * fontSize;
+    var y = drops[i] * fontSize;
+    ctx.fillStyle = Math.random() > 0.95 ? 'rgba(75,141,248,0.6)' : 'rgba(75,141,248,0.18)';
+    ctx.font = fontSize + 'px monospace';
+    ctx.fillText(ch, x, y);
+    if (y > c.height && Math.random() > 0.98) drops[i] = Math.random() * -10 | 0;
+    drops[i]++;
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+
+// Active nav
+var navbar = document.getElementById('navbar');
+var sections = document.querySelectorAll('section[id]');
+var navLinks = document.querySelectorAll('.nav-inner a');
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      navLinks.forEach(function(a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(function(s) { obs.observe(s); });
+</script>
